@@ -36,19 +36,32 @@ class App extends Component {
     }));
   };
 
+  componentDidMount(){
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    this.setState({contacts:parsedContacts})
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.contacts !== prevState.contacts){
+      console.log('new field');
+      localStorage.setItem('contacts',JSON.stringify(this.state.contacts))
+    }
+  }
+
   render() {
     const { filter } = this.state;
     const normalizedFilter = this.state.filter.toLowerCase()
     const visibleContacts = this.state.contacts.filter(cn => cn.name.toLowerCase().includes(normalizedFilter));
 
     return (
-      <>
+      <div>
         <h1 className={css.title}>Phonebook</h1>
         <ContactForm onSubmit={this.formSubmitHandler} />
         <h2 className={css.title}>Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
         <ContactsList contacts={visibleContacts} onDeleteContact={this.deleteContact} />
-      </>
+      </div>
     );
   };
 };
