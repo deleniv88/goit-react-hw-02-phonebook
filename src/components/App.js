@@ -16,6 +16,8 @@ class App extends Component {
     filter: ''
   };
 
+
+
   changeFilter = e => {
     this.setState({ filter: e.currentTarget.value })
   };
