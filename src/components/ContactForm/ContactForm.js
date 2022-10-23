@@ -16,11 +16,11 @@ class ContactForm extends Component {
 
     handelSubmit = e => {
         e.preventDefault();
-        this.props.onSubmit({
+        this.props.onSubmit(this.setState({
             name: this.state.name,
             number: this.state.number,
             id: shortid.generate()
-        })
+        }))
         this.resert();
     };
 
